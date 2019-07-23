@@ -26,25 +26,22 @@ pipeline{
 	 }
 		
 	stage("ENV: Production - Run the Container for Approval")
-		{
-	agent { label 'production-slave' }
-			options {
-				timeout(time: 30, unit: 'MINUTES')
-			}
-			input {
-				message : "MR.Shiva can you please Approve or Decined Production Deployment!"
-				ok "Deploy"
-				parameters {
-					choice(name: 'Choice', choices: "Yes\nNo",description: "Please confirm to deploy?")	
-				}
-			}
-			
-			steps {
-				checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/miismail007/node-app.git']]])	
-				echo "Option selected as ${Choice}"
-			}
-		}
-		
+	 agent {  label 'production-slave' }
+	 options {
+         timeout(time: 30, unit: 'MINUTES') 
+         }
+      input {
+        message "Which Version?"
+        ok "Deploy"
+        parameters {
+            choice(name: 'APP_VERSION', choices: "yes\nno", description: 'What to deploy?')
+        }
+      }
+      steps {
+	  checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/miismail007/node-app.git']]])
+        echo "Deploying ${APP_VERSION}."
+      }
+    }	
 		
 		
 		
