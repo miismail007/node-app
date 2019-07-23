@@ -18,13 +18,13 @@ pipeline {
 			}
 		}
 		
-		stage ('Run Docker Cotainer') {
+		stage ('Testing : Run Docker Cotainer') {
 			steps {
 			sh "docker run -d -p 8080:80 helloacrbuild:v1"
 			}
 		}
 
- stage('Deploy') {
+ stage('Production : Deploy') {
  agent {  label 'production-slave' }
 	
       options {
