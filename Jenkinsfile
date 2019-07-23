@@ -1,5 +1,7 @@
 pipeline{
-
+	    environment {
+		    userInput = true
+	    }
 	agent { label 'testing-slave'}
 	stages{
 		stage (" Checkout code")
@@ -33,7 +35,7 @@ pipeline{
 				message : "MR.Shiva can you please Approve or Decined Production Deployment!"
 				ok "Deploy"
 				parameters {
-					choice(name: 'Choice', choice: "Yes\nNo",description: "Please confirm to deploy?")
+					choice(name: 'Choice', choices: "Yes\nNo",description: "Please confirm to deploy?")
 					
 				}
 			}
