@@ -30,10 +30,10 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES') 
       }
       input {
-        message "Which Version?"
+        message "can you please Approve or Decline production deployment?"
         ok "Deploy"
         parameters {
-            choice(name: 'APP_VERSION', choices: "yes\nno", description: 'What to deploy?')
+            choice(name: 'Choice Yes or No', choices: "Yes\nNo", description: 'Continure the production deployment?')
         }
       }
       steps {
