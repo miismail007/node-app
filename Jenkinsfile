@@ -27,7 +27,7 @@ pipeline{
 		
 	stage("ENV: Production - Run the Container for Approval")
 		{
-			agent { label 'production-slave'}
+	agent { label 'production-slave' }
 			options {
 				timeout(time: 30, unit: 'MINUTES')
 			}
@@ -35,8 +35,7 @@ pipeline{
 				message : "MR.Shiva can you please Approve or Decined Production Deployment!"
 				ok "Deploy"
 				parameters {
-					choice(name: 'Choice', choices: "Yes\nNo",description: "Please confirm to deploy?")
-					
+					choice(name: 'Choice', choices: "Yes\nNo",description: "Please confirm to deploy?")	
 				}
 			}
 			
