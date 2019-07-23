@@ -10,6 +10,13 @@ pipeline {
 			checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/miismail007/node-app.git']]])
 			}
 		}
+		stage ('cleaning old container')
+		{
+			steps {
+				sh "docker rm -f $( docker ps -aq)"
+				
+			}
+		}
         
         stage ('Build') {
 			steps {
@@ -38,7 +45,8 @@ pipeline {
       }
       steps {
 	  checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/miismail007/node-app.git']]])
-     sh "docker build -t helloacrbuild:v1 ."
+     		sh "docker rm -f $( docker ps -aq)"
+	      sh "docker build -t helloacrbuild:v1 ."
 	      sh "docker run -d -p 8080:80 helloacrbuild:v1"
       }
 
