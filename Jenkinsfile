@@ -38,8 +38,10 @@ pipeline {
       }
       steps {
 	  checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/miismail007/node-app.git']]])
-        echo "Deploying ${APP_VERSION}."
+     sh "docker build -t helloacrbuild:v1 ."
+	      sh "docker run -d -p 8080:80 helloacrbuild:v1"
       }
+
     }
 
 
