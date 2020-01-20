@@ -11,7 +11,17 @@ pipeline {
 			}
 		}
 
-        
+        stage ('Build') {
+			steps {
+			sh "docker build -t helloacrbuild:v1 ."
+			}
+		}
+		
+		stage ('Testing : Run Docker Cotainer') {
+			steps {
+			sh "docker run -d -p 8080:80 helloacrbuild:v1"
+			}
+		}
         
 
 
